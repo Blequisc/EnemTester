@@ -28,6 +28,12 @@ export function QuestionCard({ question: q, selected, revealed, onSelect }: Prop
         </span>
       </header>
 
+      {q.notices?.map((n) => (
+        <p key={n} className="notice small" role="note">
+          ⚠️ {n}
+        </p>
+      ))}
+
       <div className="question-body">
         <Markdown>{q.context}</Markdown>
         {extraFiles.map((f) => (

@@ -1,0 +1,17 @@
+{
+  "2023-129": {
+    "replace": [
+      [
+        "de fórmula ![](https://enem.dev/broken-image.svg)",
+        "de fórmula C₁₂H₈Cl₆"
+      ]
+    ],
+    "notice": "A figura com a estrutura do Aldrin não está disponível. Ela não é necessária para resolver a questão."
+  },
+  "2023-146": {
+    "notice": "Parte do enunciado não está disponível. Na prova original, os números de 1 a 6 são colocados nos seis círculos do triângulo de modo que a soma dos números de cada lado seja a mesma."
+  },
+  "2023-99": {
+    "notice": "A pergunta final desta questão não aparece na base de dados. Ela pede qual material dos cães deve ser examinado para detectar o protozoário."
+  }
+}

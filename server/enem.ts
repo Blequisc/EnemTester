@@ -1,4 +1,6 @@
 // Busca as provas na API pública api.enem.dev e normaliza o formato.
+import { existsSync, readFileSync } from "node:fs";
+import path from "node:path";
 import { questionId, type Alternative, type Exam, type Letter, type Question } from "../shared/types.ts";
 
 const BASE = (process.env.ENEM_API_URL ?? "https://api.enem.dev/v1").replace(/\/$/, "");
@@ -31,6 +33,72 @@ function str(v: unknown): string {
   return typeof v === "string" ? v : "";
 }
 
+/**
+ * Área oficial pela posição da questão na prova (a base enem.dev erra a área de algumas questões).
+ * 2009–2016: Humanas (1–45), Natureza (46–90), Linguagens (91–135), Matemática (136–180).
+ * 2017 em diante: Linguagens (1–45), Humanas (46–90), Natureza (91–135), Matemática (136–180).
+ */
+export function officialDiscipline(year: number, index: number, fallback: string): string {
+  if (!Number.isInteger(index) || index < 1 || index > 180) return fallback;
+  const order =
+    year >= 2017
+      ? ["linguagens", "ciencias-humanas", "ciencias-natureza", "matematica"]
+      : ["ciencias-humanas", "ciencias-natureza", "linguagens", "matematica"];
+  return order[Math.floor((index - 1) / 45)];
+}
+
+/**
+ * Em algumas questões da base, o texto inteiro veio no campo da pergunta (e o enunciado ficou vazio).
+ * Separa: tudo antes da última linha vira enunciado; a última linha continua sendo a pergunta.
+ */
+function splitIntro(context: string, intro: string): { context: string; intro: string } {
+  if (context.trim() || !intro.includes("\n")) return { context, intro };
+  const lines = intro.trimEnd().split("\n");
+  const last = lines.pop() ?? "";
+  return { context: lines.join("\n").trim(), intro: last.trim() };
+}
+
+interface Correction {
+  /** Trocas de texto no enunciado: [de, para]. */
+  replace?: [string, string][];
+  notice?: string;
+}
+
+const corrections = new Map<number, Record<string, Correction>>();
+function correctionFor(year: number, id: string): Correction | undefined {
+  if (!corrections.has(year)) {
+    const file = path.resolve(`data/corrections/${year}.json`);
+    corrections.set(year, existsSync(file) ? JSON.parse(readFileSync(file, "utf8")) : {});
+  }
+  return corrections.get(year)?.[id];
+}
+
+const BROKEN = /!\[[^\]]*\]\([^)]*broken-image[^)]*\)/g;
+
+/** Aplica correções manuais e troca imagens quebradas da base por avisos claros. */
+function fixQuestion(q: Question): Question {
+  const fix = correctionFor(q.year, q.id);
+  let context = q.context;
+  for (const [from, to] of fix?.replace ?? []) context = context.split(from).join(to);
+
+  const notices: string[] = [];
+  // Quando há um aviso específico (data/corrections), ele substitui o aviso genérico de imagem.
+  if (!fix?.notice && (context.match(BROKEN) || q.files.some((f) => f.includes("broken-image")))) {
+    notices.push("Uma imagem desta questão não está disponível na base de dados. A explicação descreve o que é preciso saber sobre ela.");
+  }
+  context = context.replace(BROKEN, "").trim();
+  const files = q.files.filter((f) => !f.includes("broken-image"));
+  // Sem enunciado e com uma pergunta curta: o texto de apoio realmente se perdeu.
+  if (!context && files.length === 0 && q.alternativesIntroduction.length < 200) {
+    notices.push("O texto de apoio desta questão não está disponível na base de dados. Use a explicação para entender o problema.");
+  }
+  if (q.alternatives.some((a) => !a.text.trim() && !a.file)) {
+    notices.push("Algumas alternativas desta questão são imagens que não estão disponíveis na base de dados. A explicação descreve a alternativa correta.");
+  }
+  if (fix?.notice) notices.push(fix.notice);
+  return { ...q, context, files, ...(notices.length ? { notices } : {}) };
+}
+
 export function normalizeQuestion(raw: any): Question {
   const year = Number(raw.year);
   const index = Number(raw.index);
@@ -44,19 +112,20 @@ export function normalizeQuestion(raw: any): Question {
     .slice(0, 5);
   const fromFlag = (raw.alternatives ?? []).find((a: any) => a?.isCorrect)?.letter;
   const correct = (LETTERS.includes(raw.correctAlternative) ? raw.correctAlternative : fromFlag) as Letter;
-  return {
+  const text = splitIntro(str(raw.context), str(raw.alternativesIntroduction));
+  return fixQuestion({
     id: questionId(year, index, language),
     year,
     index,
     title: str(raw.title) || `Questão ${index}`,
-    discipline: str(raw.discipline),
+    discipline: officialDiscipline(year, index, str(raw.discipline)),
     language,
-    context: str(raw.context),
+    context: text.context,
     files: Array.isArray(raw.files) ? raw.files.filter((f: unknown) => typeof f === "string") : [],
-    alternativesIntroduction: str(raw.alternativesIntroduction),
+    alternativesIntroduction: text.intro,
     alternatives,
     correctAlternative: correct,
-  };
+  });
 }
 
 export async function listExams(): Promise<Exam[]> {
@@ -84,7 +153,9 @@ export async function listQuestions(year: number, language: string): Promise<Que
     if (!data?.metadata?.hasMore || qs.length === 0) break;
     offset += qs.length;
   }
-  return out.filter((q) => q.alternatives.length > 0 && q.correctAlternative);
+  // A API às vezes repete questões entre uma página e outra: remove duplicadas.
+  const unique = new Map(out.map((q) => [q.id, q]));
+  return [...unique.values()].filter((q) => q.alternatives.length > 0 && q.correctAlternative);
 }
 
 export async function getQuestion(year: number, index: number, language: string | null): Promise<Question> {

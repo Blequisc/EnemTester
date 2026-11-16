@@ -20,6 +20,8 @@ export interface Question {
   alternativesIntroduction: string;
   alternatives: Alternative[];
   correctAlternative: Letter;
+  /** Avisos sobre partes da questão que não estão disponíveis na base de dados. */
+  notices?: string[];
   /** Só existe nas questões de demonstração, que já vêm com explicação pronta. */
   explanation?: string;
 }
