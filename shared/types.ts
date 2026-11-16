@@ -37,3 +37,8 @@ export const DISCIPLINES: Record<string, { label: string; short: string; color: 
   linguagens: { label: "Linguagens e Códigos", short: "Linguagens", color: "var(--c-linguagens)" },
   matematica: { label: "Matemática", short: "Matemática", color: "var(--c-matematica)" },
 };
+
+/** Mesmo formato de id usado no site, no servidor e nos arquivos de explicação. */
+export function questionId(year: number, index: number, language: string | null): string {
+  return `${year}-${index}${language ? `-${language}` : ""}`;
+}

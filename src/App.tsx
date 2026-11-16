@@ -2,16 +2,16 @@ import { useEffect, useState } from "react";
 import { Home, type QuizStart } from "./components/Home";
 import { Quiz, type QuizResult } from "./components/Quiz";
 import { Results } from "./components/Results";
-import { fetchHealth } from "./lib/api";
+import { fetchHealth, type Health } from "./lib/api";
 
 type Screen = { name: "home" } | { name: "quiz"; quiz: QuizStart; key: number } | { name: "results"; result: QuizResult };
 
 export default function App() {
   const [screen, setScreen] = useState<Screen>({ name: "home" });
-  const [aiEnabled, setAiEnabled] = useState(false);
+  const [health, setHealth] = useState<Health>({ live: false, stored: 0 });
 
   useEffect(() => {
-    fetchHealth().then((h) => setAiEnabled(h.explanations));
+    fetchHealth().then(setHealth);
   }, []);
 
   const startQuiz = (quiz: QuizStart) => setScreen({ name: "quiz", quiz, key: Date.now() });
@@ -25,12 +25,11 @@ export default function App() {
         </button>
       </header>
       <main>
-        {screen.name === "home" && <Home aiEnabled={aiEnabled} onStart={startQuiz} />}
+        {screen.name === "home" && <Home health={health} onStart={startQuiz} />}
         {screen.name === "quiz" && (
           <Quiz
             key={screen.key}
             quiz={screen.quiz}
-            aiEnabled={aiEnabled}
             onExit={goHome}
             onFinish={(result) => {
               setScreen({ name: "results", result });
@@ -41,7 +40,6 @@ export default function App() {
         {screen.name === "results" && (
           <Results
             result={screen.result}
-            aiEnabled={aiEnabled}
             onHome={goHome}
             onRetryWrong={() => {
               const r = screen.result;
@@ -59,7 +57,7 @@ export default function App() {
         <a href="https://enem.dev" target="_blank" rel="noreferrer">
           enem.dev
         </a>
-        . Explicações geradas por IA: confira sempre com seu material de estudo.
+        . Explicações geradas por IA (Claude): confira sempre com seu material de estudo.
       </footer>
     </>
   );

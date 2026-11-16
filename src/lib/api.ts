@@ -8,11 +8,18 @@ async function json<T>(res: Response): Promise<T> {
   return res.json();
 }
 
-export async function fetchHealth(): Promise<{ explanations: boolean }> {
+export interface Health {
+  /** O servidor consegue gerar explicações novas na hora (tem chave da API). */
+  live: boolean;
+  /** Quantas explicações já estão prontas no servidor. */
+  stored: number;
+}
+
+export async function fetchHealth(): Promise<Health> {
   try {
     return await json(await fetch("/api/health"));
   } catch {
-    return { explanations: false };
+    return { live: false, stored: 0 };
   }
 }
 
@@ -50,6 +57,12 @@ function saveExplanation(id: string, text: string) {
   }
 }
 
+export class ExplainError extends Error {
+  constructor(public status: number, message: string) {
+    super(message);
+  }
+}
+
 /** Busca a explicação em streaming, chamando onText com o texto acumulado. */
 export async function streamExplanation(
   q: Question,
@@ -64,7 +77,7 @@ export async function streamExplanation(
   });
   if (!res.ok || !res.body) {
     const body = await res.json().catch(() => null);
-    throw new Error(body?.error ?? "Não foi possível carregar a explicação.");
+    throw new ExplainError(res.status, body?.error ?? "Não foi possível carregar a explicação.");
   }
   const reader = res.body.getReader();
   const decoder = new TextDecoder();

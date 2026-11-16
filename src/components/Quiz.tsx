@@ -12,7 +12,6 @@ export interface QuizResult extends QuizStart {
 
 interface Props {
   quiz: QuizStart;
-  aiEnabled: boolean;
   onFinish: (result: QuizResult) => void;
   onExit: () => void;
 }
@@ -27,7 +26,7 @@ function formatTime(ms: number) {
   return `${h ? `${h}:` : ""}${pad(m)}:${pad(s % 60)}`;
 }
 
-export function Quiz({ quiz, aiEnabled, onFinish, onExit }: Props) {
+export function Quiz({ quiz, onFinish, onExit }: Props) {
   const { questions, mode } = quiz;
   const [current, setCurrent] = useState(0);
   const [answers, setAnswers] = useState<Record<string, Letter>>({});
@@ -120,7 +119,7 @@ export function Quiz({ quiz, aiEnabled, onFinish, onExit }: Props) {
 
       <QuestionCard question={q} selected={selected} revealed={revealed} onSelect={select} />
 
-      {revealed && <Explanation question={q} chosen={selected} aiEnabled={aiEnabled} />}
+      {revealed && <Explanation question={q} chosen={selected} />}
 
       <div className="quiz-actions">
         {mode === "simulado" && (

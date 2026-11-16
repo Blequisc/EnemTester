@@ -1,11 +1,17 @@
-// Gera a explicação de uma questão com o Claude, em streaming, e guarda em cache no disco.
+// Explicações das questões: prompt, armazenamento em arquivos e geração ao vivo com o Claude.
 import Anthropic from "@anthropic-ai/sdk";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { DISCIPLINES, type Question } from "../shared/types.ts";
 
-const MODEL = process.env.CLAUDE_MODEL ?? "claude-opus-5-5";
-const CACHE_DIR = path.resolve(".cache/explanations");
+export const DEFAULT_MODEL = "claude-opus-5-5";
+export function currentModel(): string {
+  return process.env.CLAUDE_MODEL || DEFAULT_MODEL;
+}
+
+/** Pasta com as explicações prontas (geradas em lote ou ao vivo). Vai junto no repositório. */
+export const STORE_DIR = path.resolve("data/explanations");
+const ID_RE = /^(\d{4})-\d{1,3}(?:-(?:ingles|espanhol))?$/;
 
 let client: Anthropic | null = null;
 export function explanationsEnabled(): boolean {
@@ -17,7 +23,7 @@ function getClient(): Anthropic {
 }
 
 // Prompt fixo (não muda entre requisições) para aproveitar o cache de prompt.
-const SYSTEM = `Você é um professor experiente de cursinho pré-vestibular, especialista no ENEM.
+export const SYSTEM = `Você é um professor experiente de cursinho pré-vestibular, especialista no ENEM.
 Sua tarefa é explicar uma questão de uma prova antiga do ENEM para um estudante que acabou de resolvê-la.
 
 Escreva em português do Brasil, com linguagem clara, acolhedora e direta, como numa boa aula particular.
@@ -44,7 +50,7 @@ Regras:
 - O gabarito oficial informado está correto; nunca o contradiga. Se não conseguir ver uma imagem necessária, diga isso de forma breve e explique com base no texto e no gabarito.
 - Não invente dados que não estão na questão.`;
 
-function buildContent(q: Question): Anthropic.Beta.BetaContentBlockParam[] {
+export function buildContent(q: Question): Anthropic.ContentBlockParam[] {
   const area = DISCIPLINES[q.discipline]?.label ?? q.discipline;
   const alts = q.alternatives
     .map((a) => `${a.letter}) ${a.text || (a.file ? "[alternativa em imagem]" : "")}`)
@@ -67,24 +73,45 @@ function buildContent(q: Question): Anthropic.Beta.BetaContentBlockParam[] {
   const images = [...q.files, ...q.alternatives.map((a) => a.file)]
     .filter((u): u is string => typeof u === "string" && /^https?:\/\//.test(u))
     .slice(0, 8)
-    .map((url): Anthropic.Beta.BetaContentBlockParam => ({ type: "image", source: { type: "url", url } }));
+    .map((url): Anthropic.ContentBlockParam => ({ type: "image", source: { type: "url", url } }));
 
   return [...images, { type: "text", text }];
 }
 
-function cacheFile(q: Question) {
-  return path.join(CACHE_DIR, `${q.id.replace(/[^a-z0-9-]/gi, "_")}.md`);
+/** Parâmetros da requisição, usados tanto ao vivo quanto na geração em lote. */
+export function buildParams(q: Question, model: string): Anthropic.MessageCreateParamsNonStreaming {
+  return {
+    model,
+    max_tokens: 8000,
+    output_config: { effort: "medium" },
+    system: [{ type: "text", text: SYSTEM, cache_control: { type: "ephemeral" } }],
+    messages: [{ role: "user", content: buildContent(q) }],
+  };
 }
 
-export async function getCachedExplanation(q: Question): Promise<string | null> {
+function storePath(id: string): string | null {
+  const m = id.match(ID_RE);
+  return m ? path.join(STORE_DIR, m[1], `${id}.md`) : null;
+}
+
+export async function readStoredExplanation(id: string): Promise<string | null> {
+  const file = storePath(id);
+  if (!file) return null;
   try {
-    return await readFile(cacheFile(q), "utf8");
+    return await readFile(file, "utf8");
   } catch {
     return null;
   }
 }
 
-/** Faz o streaming da explicação, chamando onText a cada pedaço. Retorna o texto completo. */
+export async function saveExplanation(id: string, text: string): Promise<void> {
+  const file = storePath(id);
+  if (!file || !text.trim()) return;
+  await mkdir(path.dirname(file), { recursive: true });
+  await writeFile(file, text.trim() + "\n", "utf8");
+}
+
+/** Gera ao vivo em streaming, chamando onText a cada pedaço, e salva o resultado. */
 export async function streamExplanation(
   q: Question,
   onText: (chunk: string) => void,
@@ -92,14 +119,10 @@ export async function streamExplanation(
 ): Promise<string> {
   const stream = getClient().beta.messages.stream(
     {
-      model: MODEL,
-      max_tokens: 8000,
-      output_config: { effort: "medium" },
+      ...buildParams(q, currentModel()),
       // Se o modelo recusar por engano, a API tenta de novo num modelo alternativo.
       betas: ["server-side-fallback-2026-07-01"],
       fallbacks: "default",
-      system: [{ type: "text", text: SYSTEM, cache_control: { type: "ephemeral" } }],
-      messages: [{ role: "user", content: buildContent(q) }],
     },
     { signal },
   );
@@ -115,10 +138,6 @@ export async function streamExplanation(
   if (final.stop_reason === "refusal") {
     throw new Error("Não foi possível gerar a explicação desta questão.");
   }
-
-  if (full.trim()) {
-    await mkdir(CACHE_DIR, { recursive: true });
-    await writeFile(cacheFile(q), full, "utf8");
-  }
+  await saveExplanation(q.id, full);
   return full;
 }

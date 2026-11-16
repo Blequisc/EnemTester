@@ -1,19 +1,18 @@
 import { useEffect, useState } from "react";
 import type { Letter, Question } from "../../shared/types";
-import { cachedExplanation, streamExplanation } from "../lib/api";
+import { cachedExplanation, ExplainError, streamExplanation } from "../lib/api";
 import { Markdown } from "./Markdown";
 
 interface Props {
   question: Question;
   chosen: Letter | null;
-  aiEnabled: boolean;
 }
 
-export function Explanation({ question: q, chosen, aiEnabled }: Props) {
+export function Explanation({ question: q, chosen }: Props) {
   const initial = q.explanation ?? cachedExplanation(q.id);
   const [text, setText] = useState<string>(initial ?? "");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<{ message: string; missing: boolean } | null>(null);
   const [attempt, setAttempt] = useState(0);
 
   useEffect(() => {
@@ -24,18 +23,17 @@ export function Explanation({ question: q, chosen, aiEnabled }: Props) {
       return;
     }
     setText("");
-    if (!aiEnabled) return;
     const ctrl = new AbortController();
     setLoading(true);
     streamExplanation(q, setText, ctrl.signal)
       .catch((e: Error) => {
-        if (!ctrl.signal.aborted) setError(e.message);
+        if (!ctrl.signal.aborted) setError({ message: e.message, missing: e instanceof ExplainError && e.status === 404 });
       })
       .finally(() => {
         if (!ctrl.signal.aborted) setLoading(false);
       });
     return () => ctrl.abort();
-  }, [q, aiEnabled, attempt]);
+  }, [q, attempt]);
 
   const correct = chosen === q.correctAlternative;
 
@@ -62,18 +60,17 @@ export function Explanation({ question: q, chosen, aiEnabled }: Props) {
         </div>
       )}
       {loading && text && <span className="cursor" aria-hidden />}
-      {error && (
+      {error?.missing && (
+        <div className="notice">
+          A explicação desta questão ainda não foi gerada. Por enquanto, confira o gabarito acima.
+        </div>
+      )}
+      {error && !error.missing && (
         <div className="notice error">
-          {error}{" "}
+          {error.message}{" "}
           <button className="link" onClick={() => setAttempt((n) => n + 1)}>
             Tentar de novo
           </button>
-        </div>
-      )}
-      {!aiEnabled && !text && (
-        <div className="notice">
-          As explicações automáticas não estão ativadas neste servidor (falta configurar a chave da API do Claude).
-          Você ainda pode conferir o gabarito acima.
         </div>
       )}
     </section>

@@ -1,5 +1,5 @@
 // Busca as provas na API pública api.enem.dev e normaliza o formato.
-import type { Alternative, Exam, Letter, Question } from "../shared/types.ts";
+import { questionId, type Alternative, type Exam, type Letter, type Question } from "../shared/types.ts";
 
 const BASE = (process.env.ENEM_API_URL ?? "https://api.enem.dev/v1").replace(/\/$/, "");
 const LETTERS: Letter[] = ["A", "B", "C", "D", "E"];
@@ -45,7 +45,7 @@ export function normalizeQuestion(raw: any): Question {
   const fromFlag = (raw.alternatives ?? []).find((a: any) => a?.isCorrect)?.letter;
   const correct = (LETTERS.includes(raw.correctAlternative) ? raw.correctAlternative : fromFlag) as Letter;
   return {
-    id: `${year}-${index}${language ? `-${language}` : ""}`,
+    id: questionId(year, index, language),
     year,
     index,
     title: str(raw.title) || `Questão ${index}`,

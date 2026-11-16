@@ -6,7 +6,6 @@ import type { QuizResult } from "./Quiz";
 
 interface Props {
   result: QuizResult;
-  aiEnabled: boolean;
   onHome: () => void;
   onRetryWrong: () => void;
 }
@@ -16,7 +15,7 @@ function minutes(ms: number) {
   return m < 1 ? "menos de 1 min" : `${m} min`;
 }
 
-export function Results({ result, aiEnabled, onHome, onRetryWrong }: Props) {
+export function Results({ result, onHome, onRetryWrong }: Props) {
   const { questions, answers } = result;
   const [reviewing, setReviewing] = useState<number | null>(null);
 
@@ -48,7 +47,7 @@ export function Results({ result, aiEnabled, onHome, onRetryWrong }: Props) {
           <span />
         </div>
         <QuestionCard question={q} selected={answers[q.id] ?? null} revealed />
-        <Explanation question={q} chosen={answers[q.id] ?? null} aiEnabled={aiEnabled} />
+        <Explanation question={q} chosen={answers[q.id] ?? null} />
         <div className="quiz-actions">
           <button className="btn" disabled={reviewing === 0} onClick={() => setReviewing(reviewing - 1)}>
             ← Anterior

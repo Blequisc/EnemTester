@@ -4,7 +4,9 @@ import express, { type Request, type Response } from "express";
 import { existsSync } from "node:fs";
 import path from "node:path";
 import { EnemApiError, getQuestion, listExams, listQuestions } from "./enem.ts";
-import { explanationsEnabled, getCachedExplanation, streamExplanation } from "./explain.ts";
+import { explanationsEnabled, readStoredExplanation, streamExplanation, STORE_DIR } from "./explain.ts";
+import { questionId } from "../shared/types.ts";
+import { readdirSync } from "node:fs";
 
 const app = express();
 app.use(express.json({ limit: "10kb" }));
@@ -18,8 +20,17 @@ function sendError(res: Response, err: unknown) {
   }
 }
 
+function countStored(): number {
+  try {
+    return readdirSync(STORE_DIR, { recursive: true }).filter((f) => /\d{4}-\d+(-\w+)?\.md$/.test(String(f))).length;
+  } catch {
+    return 0;
+  }
+}
+
 app.get("/api/health", (_req, res) => {
-  res.json({ ok: true, explanations: explanationsEnabled() });
+  // live: gera explicações novas na hora; stored: quantas já estão prontas em data/explanations.
+  res.json({ ok: true, live: explanationsEnabled(), stored: countStored() });
 });
 
 app.get("/api/exams", async (_req, res) => {
@@ -61,18 +72,24 @@ app.post("/api/explain", async (req: Request, res: Response) => {
     return void res.status(400).json({ error: "Questão inválida." });
   }
 
+  // 1) Explicação já pronta (gerada em lote ou antes): resposta imediata e de graça.
+  const stored = await readStoredExplanation(questionId(year, index, language));
+  if (stored) {
+    res.setHeader("Cache-Control", "public, max-age=86400");
+    return void res.type("text/plain").end(stored);
+  }
+
+  // 2) Sem explicação pronta e sem chave da API: não há o que fazer.
+  if (!explanationsEnabled()) {
+    return void res.status(404).json({ error: "A explicação desta questão ainda não foi gerada." });
+  }
+
+  // 3) Gera ao vivo com o Claude.
   let question;
   try {
     question = await getQuestion(year, index, language);
   } catch (err) {
     return void sendError(res, err);
-  }
-
-  const cached = await getCachedExplanation(question);
-  if (cached) return void res.type("text/plain").end(cached);
-
-  if (!explanationsEnabled()) {
-    return void res.status(503).json({ error: "Explicações desativadas: configure ANTHROPIC_API_KEY no servidor." });
   }
   if (rateLimited(req.ip ?? "?")) {
     return void res.status(429).json({ error: "Muitas explicações pedidas em pouco tempo. Tente de novo daqui a pouco." });

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { DISCIPLINES, type Exam, type Question } from "../../shared/types";
 import { DEMO_QUESTIONS } from "../data/demo";
-import { fetchExams, fetchQuestions } from "../lib/api";
+import { fetchExams, fetchQuestions, type Health } from "../lib/api";
 import { loadProgress, resetProgress, statsByDiscipline } from "../lib/progress";
 
 export type Mode = "estudo" | "simulado";
@@ -13,7 +13,7 @@ export interface QuizStart {
 }
 
 interface Props {
-  aiEnabled: boolean;
+  health: Health;
   onStart: (quiz: QuizStart) => void;
 }
 
@@ -28,7 +28,7 @@ function shuffle<T>(arr: T[]): T[] {
   return a;
 }
 
-export function Home({ aiEnabled, onStart }: Props) {
+export function Home({ health, onStart }: Props) {
   const [exams, setExams] = useState<Exam[] | null>(null);
   const [examsError, setExamsError] = useState<string | null>(null);
   const [year, setYear] = useState<number | null>(null);
@@ -84,9 +84,10 @@ export function Home({ aiEnabled, onStart }: Props) {
           Escolha uma prova, responda as questões e, a cada resposta, veja <strong>por que</strong> a alternativa certa é a
           certa, onde estava a pegadinha e uma revisão rápida do conteúdo cobrado.
         </p>
-        {!aiEnabled && (
+        {!health.live && health.stored === 0 && (
           <p className="notice">
-            Explicações automáticas desativadas neste servidor. As questões de demonstração continuam com explicação completa.
+            Ainda não há explicações das provas oficiais neste servidor. As questões de demonstração continuam com explicação
+            completa.
           </p>
         )}
       </section>
