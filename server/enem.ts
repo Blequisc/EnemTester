@@ -147,20 +147,88 @@ export function normalizeQuestion(raw: any): Question {
   });
 }
 
+// ---------------------------------------------------------------------------
+// Provas guardadas no próprio projeto (anos que não existem na enem.dev).
+// data/questions/<ano>.json tem as questões no mesmo formato da API, e
+// data/questions/exams.json tem os dados de cada prova (título, fonte, se é oficial).
+// ---------------------------------------------------------------------------
+const LOCAL_DIR = path.resolve("data/questions");
+
+interface LocalExamMeta {
+  title: string;
+  source: string;
+  unofficial?: boolean;
+  note?: string;
+}
+
+function localMeta(): Record<string, LocalExamMeta> {
+  const file = path.join(LOCAL_DIR, "exams.json");
+  return existsSync(file) ? JSON.parse(readFileSync(file, "utf8")) : {};
+}
+
+const localCache = new Map<number, any[]>();
+function localRaw(year: number): any[] | null {
+  if (!localMeta()[year]) return null;
+  if (!localCache.has(year)) {
+    const file = path.join(LOCAL_DIR, `${year}.json`);
+    localCache.set(year, existsSync(file) ? JSON.parse(readFileSync(file, "utf8")) : []);
+  }
+  return localCache.get(year)!;
+}
+
+function normalizeLocal(raw: any): Question {
+  const q = normalizeQuestion(raw);
+  const meta = localMeta()[q.year];
+  if (meta?.unofficial) {
+    q.notices = [meta.note ?? "Prova não oficial (demonstração).", ...(q.notices ?? [])];
+  }
+  return q;
+}
+
+const DEFAULT_DISCIPLINES = [
+  { label: "Linguagens, Códigos e suas Tecnologias", value: "linguagens" },
+  { label: "Ciências Humanas e suas Tecnologias", value: "ciencias-humanas" },
+  { label: "Ciências da Natureza e suas Tecnologias", value: "ciencias-natureza" },
+  { label: "Matemática e suas Tecnologias", value: "matematica" },
+];
+
 export async function listExams(): Promise<Exam[]> {
-  const raw = await getJson<any[]>("/exams");
-  return raw
-    .map((e) => ({
+  let remote: Exam[] = [];
+  try {
+    const raw = await getJson<any[]>("/exams");
+    remote = raw.map((e) => ({
       year: Number(e.year),
       title: str(e.title) || `ENEM ${e.year}`,
       disciplines: Array.isArray(e.disciplines) ? e.disciplines : [],
       languages: Array.isArray(e.languages) ? e.languages : [],
-    }))
-    .sort((a, b) => b.year - a.year);
+    }));
+  } catch (err) {
+    // Sem a enem.dev, o site continua funcionando com as provas locais.
+    if (Object.keys(localMeta()).length === 0) throw err;
+    console.error("Não foi possível listar as provas da enem.dev:", (err as Error).message);
+  }
+  const local: Exam[] = Object.entries(localMeta()).map(([year, meta]) => ({
+    year: Number(year),
+    title: meta.title,
+    disciplines: DEFAULT_DISCIPLINES,
+    languages: [],
+    unofficial: meta.unofficial ?? false,
+    note: meta.note,
+  }));
+  const byYear = new Map<number, Exam>();
+  for (const e of [...remote, ...local]) byYear.set(e.year, e);
+  return [...byYear.values()].sort((a, b) => b.year - a.year);
 }
 
 /** Todas as questões de um ano (a API pagina de 50 em 50). */
 export async function listQuestions(year: number, language: string): Promise<Question[]> {
+  const local = localRaw(year);
+  if (local) {
+    return local
+      .filter((r) => !r.language || r.language === language)
+      .map(normalizeLocal)
+      .filter((q) => q.alternatives.length > 0 && q.correctAlternative);
+  }
   const out: Question[] = [];
   let offset = 0;
   for (let page = 0; page < 10; page++) {
@@ -178,6 +246,12 @@ export async function listQuestions(year: number, language: string): Promise<Que
 }
 
 export async function getQuestion(year: number, index: number, language: string | null): Promise<Question> {
+  const local = localRaw(year);
+  if (local) {
+    const raw = local.find((r) => r.index === index && (!r.language || r.language === language));
+    if (!raw) throw new EnemApiError(404, `Questão ${index} de ${year} não encontrada`);
+    return normalizeLocal(raw);
+  }
   const qs = language ? `?language=${encodeURIComponent(language)}` : "";
   return normalizeQuestion(await getJson<any>(`/exams/${year}/questions/${index}${qs}`));
 }

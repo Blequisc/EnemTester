@@ -115,10 +115,15 @@ export function Home({ health, onStart }: Props) {
                   {exams.map((e) => (
                     <option key={e.year} value={e.year}>
                       {e.title}
+                      {e.unofficial ? " (demo, não oficial)" : ""}
                     </option>
                   ))}
                 </select>
               </label>
+
+              {exam?.unofficial && (
+                <p className="notice small">⚠️ {exam.note ?? "Prova montada a partir de fontes não oficiais. Pode conter erros."}</p>
+              )}
 
               <fieldset>
                 <legend>Área</legend>

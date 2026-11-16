@@ -31,6 +31,9 @@ export interface Exam {
   title: string;
   disciplines: { label: string; value: string }[];
   languages: { label: string; value: string }[];
+  /** Prova montada a partir de fontes não oficiais (demonstração). */
+  unofficial?: boolean;
+  note?: string;
 }
 
 export const DISCIPLINES: Record<string, { label: string; short: string; color: string }> = {

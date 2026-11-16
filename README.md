@@ -4,7 +4,7 @@ Site para estudar resolvendo **provas antigas do ENEM**. A cada questão respond
 
 ## Funcionalidades
 
-- **Provas oficiais de vários anos** (via API pública e gratuita [enem.dev](https://enem.dev)), com filtro por área, língua estrangeira (inglês/espanhol), quantidade e ordem aleatória.
+- **Provas oficiais de 2009 a 2025**: até 2023 pela API pública [enem.dev](https://enem.dev); 2024 e 2025 extraídas dos PDFs oficiais do INEP. Filtro por área, língua estrangeira (inglês/espanhol), quantidade e ordem aleatória.
 - **Modo Estudo**: correção e explicação logo após cada questão.
 - **Modo Simulado**: cronômetro, navegação livre entre questões e correção só no final.
 - **Explicações por IA** (Claude), geradas uma vez só e salvas no projeto (`npm run gerar`), ou na hora, se houver chave da API. Cada questão só é paga uma vez.
@@ -59,6 +59,23 @@ O site procura primeiro a explicação pronta. Se ela não existir e houver chav
 npm run build
 npm start          # serve o site e a API em http://localhost:3001
 ```
+
+## Provas de 2024 em diante
+
+A base enem.dev só vai até 2023. As provas mais novas ficam guardadas no próprio projeto, extraídas dos PDFs oficiais do INEP:
+
+- `data/questions/<ano>.json`: questões (enunciado, alternativas e gabarito oficial);
+- `public/enem-assets/<ano>/`: figuras, gráficos e alternativas em forma de imagem, recortados da prova;
+- `data/questions/exams.json`: lista dessas provas. Uma prova marcada com `"unofficial": true` aparece no site como **demo, não oficial**.
+
+Para importar uma prova nova (por exemplo, quando o INEP publicar a de 2026):
+
+```bash
+pip install pymupdf pillow
+python3 scripts/importar-prova-inep.py 2026 2026_PV_impresso_D1_CD1.pdf 2026_PV_impresso_D2_CD7.pdf 2026_GB_impresso_D1_CD1.pdf 2026_GB_impresso_D2_CD7.pdf
+```
+
+Depois, adicione o ano em `data/questions/exams.json` e confira as questões no site. Questões anuladas ficam de fora.
 
 ## Como funciona
 
