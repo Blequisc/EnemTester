@@ -122,8 +122,11 @@ app.post("/api/explain", async (req: Request, res: Response) => {
 // Em produção, serve o front-end compilado.
 const dist = path.resolve("dist");
 if (existsSync(dist)) {
+  // public/ primeiro: imagens das provas adicionadas depois do build também aparecem.
+  app.use(express.static(path.resolve("public")));
   app.use(express.static(dist));
-  app.get(/^\/(?!api\/).*/, (_req, res) => res.sendFile(path.join(dist, "index.html")));
+  // Rotas do site (sem extensão) devolvem o index.html; arquivos inexistentes dão 404.
+  app.get(/^\/(?!api\/)[^.]*$/, (_req, res) => res.sendFile(path.join(dist, "index.html")));
 }
 
 const port = Number(process.env.PORT ?? 3001);

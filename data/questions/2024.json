@@ -4133,7 +4133,7 @@
   "year": 2024,
   "language": null,
   "discipline": "",
-  "context": "Células a combustível microbianas (CCM) são capazes de gerar eletricidade a partir de águas residuárias urbanas e agroindustriais. As CCM são compostas de duas câmaras. Numa delas, onde ocorre o tratamento da matéria orgânica, as bactérias eletrogênicas crescem formando um biofilme e se alimentam dos poluentes presentes no efluente. Ao se alimentarem, essas bactérias geram uma corrente elétrica que percorre o material sobre o qual elas formaram o biofilme. Um fio condutor externo possibilita a migração dessa corrente para uma segunda câmara, promovendo uma reação química. A figura esquematiza uma CCM e as reações envolvidas.\n\n![](/enem-assets/2024/q92-1.png)\n\n![fórmula](/enem-assets/2024/q92-2.png)\n\nQUINTO, A. C. Biobaterias geram eletricidade a partir de esgoto sanitário e efluentes agroindustriais. Disponível em: https://jornal.usp.br. Acesso em: 1 dez. 2021 (adaptado).",
+  "context": "Células a combustível microbianas (CCM) são capazes de gerar eletricidade a partir de águas residuárias urbanas e agroindustriais. As CCM são compostas de duas câmaras. Numa delas, onde ocorre o tratamento da matéria orgânica, as bactérias eletrogênicas crescem formando um biofilme e se alimentam dos poluentes presentes no efluente. Ao se alimentarem, essas bactérias geram uma corrente elétrica que percorre o material sobre o qual elas formaram o biofilme. Um fio condutor externo possibilita a migração dessa corrente para uma segunda câmara, promovendo uma reação química. A figura esquematiza uma CCM e as reações envolvidas.\n\n![](/enem-assets/2024/q92-1.png)\n\nCH₃COO⁻ ₍aq₎ ₊ ₂ H₂O ₍I₎ → ₂ CO₂ ₍g₎ ₊ ₇ H⁺ ₍aq₎ ₊ ₈ e⁻\n\n![fórmula](/enem-assets/2024/q92-2.png)\n\nQUINTO, A. C. Biobaterias geram eletricidade a partir de esgoto sanitário e efluentes agroindustriais. Disponível em: https://jornal.usp.br. Acesso em: 1 dez. 2021 (adaptado).",
   "files": [],
   "correctAlternative": "C",
   "alternativesIntroduction": "Qual das equações representa a reação global que ocorre durante o funcionamento dessa CCM?",
@@ -5165,7 +5165,7 @@
   "year": 2024,
   "language": null,
   "discipline": "",
-  "context": "O magnésio metálico utilizado em ligas leves é produzido em um processo que envolve várias etapas e utiliza água do mar como matéria-prima. A primeira etapa desse processo consiste na reação entre o íon Mg²⁺ e hidróxido de cálcio, Ca(OH)₂, obtendo uma mistura que contém hidróxido de magnésio, pouco solúvel, e íons Ca²⁺, de acordo com a equação química:\n\n![fórmula](/enem-assets/2024/q116-1.png)",
+  "context": "O magnésio metálico utilizado em ligas leves é produzido em um processo que envolve várias etapas e utiliza água do mar como matéria-prima. A primeira etapa desse processo consiste na reação entre o íon Mg²⁺ e hidróxido de cálcio, Ca(OH)₂, obtendo uma mistura que contém hidróxido de magnésio, pouco solúvel, e íons Ca²⁺, de acordo com a equação química:\n\nMg²⁺ ₍aq₎ + Ca₍OH₎₂ ₍aq₎ → Mg₍OH₎₂ ₍s₎ ₊ Ca²⁺ ₍aq₎",
   "files": [],
   "correctAlternative": "A",
   "alternativesIntroduction": "O método adequado para separar o Mg(OH)₂ dessa mistura é a",
@@ -5251,7 +5251,7 @@
   "year": 2024,
   "language": null,
   "discipline": "",
-  "context": "![fórmula](/enem-assets/2024/q118-1.png)\n\nconstituinte do esmalte dos dentes. Entre as diversas reações que ocorrem no meio bucal, encontram-se em equilíbrio as reações de desmineralização e mineralização da hidroxiapatita em meio aquoso, ilustradas a seguir. A desmineralização está associada à fragilização do esmalte do dente e à formação de cáries.\n\n![](/enem-assets/2024/q118-2.png)\n\n![](/enem-assets/2024/q118-3.png)\n\nDesmineralização\n\nMineralização\n\nO uso de creme dental pode minimizar a perda da hidroxiapatita. O quadro apresenta o agente de polimento e o pH de alguns cremes dentais comerciais.\n\nCreme dental\n\nAgente de polimento\n\npH I\nBicarbonato de sódio 9,5 II\nCarbonato de cálcio 11,0 III\nCitrato de potássio 7,7 IV\nDióxido de silício 6,9 V\nFosfato de cálcio 7,3\n\nSTORGATTO, G. A.; BRAIBANTE, M. E. F.; BRAIBANTE, H. T. S. A química na odontologia. Química Nova na Escola, v. 39, fev. 2017 (adaptado).",
+  "context": "A hidroxiapatita, Ca₅(PO₄)₃OH, é um mineral constituinte do esmalte dos dentes. Entre as diversas reações que ocorrem no meio bucal, encontram-se em equilíbrio as reações de desmineralização e mineralização da hidroxiapatita em meio aquoso, ilustradas a seguir. A desmineralização está associada à fragilização do esmalte do dente e à formação de cáries.\n\n![](/enem-assets/2024/q118-1.png)\n\n![](/enem-assets/2024/q118-2.png)\n\nDesmineralização\n\nMineralização\n\nO uso de creme dental pode minimizar a perda da hidroxiapatita. O quadro apresenta o agente de polimento e o pH de alguns cremes dentais comerciais.\n\nCreme dental\n\nAgente de polimento\n\npH I\nBicarbonato de sódio 9,5 II\nCarbonato de cálcio 11,0 III\nCitrato de potássio 7,7 IV\nDióxido de silício 6,9 V\nFosfato de cálcio 7,3\n\nSTORGATTO, G. A.; BRAIBANTE, M. E. F.; BRAIBANTE, H. T. S. A química na odontologia. Química Nova na Escola, v. 39, fev. 2017 (adaptado).",
   "files": [],
   "correctAlternative": "D",
   "alternativesIntroduction": "Considerando o equilíbrio químico envolvido, qual creme dental promove a maior desmineralização do esmalte do dente?",
@@ -5681,7 +5681,7 @@
   "year": 2024,
   "language": null,
   "discipline": "",
-  "context": "Placas solares comuns dependem de dias ensolarados para gerar energia. Mas podemos gerar eletricidade com a ajuda de gotas de chuva, revestindo placas solares com uma fina camada de grafeno. Os íons dissociados a\n\n![fórmula](/enem-assets/2024/q128-1.png)\n\ngrafeno e água da chuva um par perfeito para geração de energia. O processo requer apenas uma camada de grafeno para que grande quantidade de elétrons (e⁻) se movimente ao longo da superfície.\n\n![](/enem-assets/2024/q128-2.jpg)\n\nTANG, Q. et al. A Solar Cell that is Triggered by Sun and Rain. Angewandte Chemie International Edition, n. 55, 2016 (adaptado).",
+  "context": "Placas solares comuns dependem de dias ensolarados para gerar energia. Mas podemos gerar eletricidade com a ajuda de gotas de chuva, revestindo placas solares com uma fina camada de grafeno. Os íons dissociados a partir da água da chuva (Am⁺ e Bⁿ⁻) tornam a combinação grafeno e água da chuva um par perfeito para geração de energia. O processo requer apenas uma camada de grafeno para que grande quantidade de elétrons (e⁻) se movimente ao longo da superfície.\n\n![](/enem-assets/2024/q128-1.jpg)\n\nTANG, Q. et al. A Solar Cell that is Triggered by Sun and Rain. Angewandte Chemie International Edition, n. 55, 2016 (adaptado).",
   "files": [],
   "correctAlternative": "E",
   "alternativesIntroduction": "Ao produzir eletricidade em dias chuvosos, o grafeno",
@@ -5724,7 +5724,7 @@
   "year": 2024,
   "language": null,
   "discipline": "",
-  "context": "O diagrama P-V a seguir representa o ciclo de Otto para um motor de combustão interna, como os motores a gasolina ou a etanol, utilizados nos automóveis.\n\n![](/enem-assets/2024/q130-1.png)\n\nAs etapas representadas no diagrama estão descritas no quadro.\n\n![](/enem-assets/2024/q130-2.png)\n\nAdmissão isobárica da mistura I\n\n![fórmula](/enem-assets/2024/q130-3.png)\n\nar-combustível no cilindro do motor.\n\nII\n\n![fórmula](/enem-assets/2024/q130-4.png)\n\nCompressão adiabática da mistura.\n\nIntrodução de energia na forma III\n\n![fórmula](/enem-assets/2024/q130-5.png)\n\nde calor da combustão.\n\nIV\n\n![fórmula](/enem-assets/2024/q130-6.png)\n\nExpansão adiabática.\n\nLiberação de energia\nV\n\n![fórmula](/enem-assets/2024/q130-7.png)\n\nna forma de calor.\nLiberação dos gases\nVI\n\n![fórmula](/enem-assets/2024/q130-8.png)\n\nresultantes da combustão.\n\nDisponível em: www.mspc.eng.br. Acesso em: 24 fev. 2013 (adaptado).",
+  "context": "O diagrama P-V a seguir representa o ciclo de Otto para um motor de combustão interna, como os motores a gasolina ou a etanol, utilizados nos automóveis.\n\n![](/enem-assets/2024/q130-1.png)\n\nAs etapas representadas no diagrama estão descritas no quadro.\n\n![](/enem-assets/2024/q130-2.png)\n\nDisponível em: www.mspc.eng.br. Acesso em: 24 fev. 2013 (adaptado).",
   "files": [],
   "correctAlternative": "C",
   "alternativesIntroduction": "A transformação da energia térmica em energia útil ocorre na etapa",
@@ -6111,7 +6111,7 @@
   "year": 2024,
   "language": null,
   "discipline": "",
-  "context": "Um artesão utiliza dois tipos de componentes, X e Y, nos enfeites que produz. Ele sempre compra todos os componentes em uma mesma loja. O quadro apresenta os preços dos dois tipos de componentes nas lojas I e II.\n\n![](/enem-assets/2024/q139-1.png)\n\nI\n\n3,00\n\n1,00\nII 2,00 4,00\nEle confeccionará enfeites formados por duas unidades do componente X e uma unidade do componente Y e efetuará a compra na loja que oferecer o menor valor total para a confecção de um enfeite.",
+  "context": "Um artesão utiliza dois tipos de componentes, X e Y, nos enfeites que produz. Ele sempre compra todos os componentes em uma mesma loja. O quadro apresenta os preços dos dois tipos de componentes nas lojas I e II.\n\n![](/enem-assets/2024/q139-1.png)\n\nEle confeccionará enfeites formados por duas unidades do componente X e uma unidade do componente Y e efetuará a compra na loja que oferecer o menor valor total para a confecção de um enfeite.",
   "files": [],
   "correctAlternative": "A",
   "alternativesIntroduction": "O artesão efetuará a compra na loja",
@@ -6584,10 +6584,10 @@
   "year": 2024,
   "language": null,
   "discipline": "",
-  "context": "Uma sala com piso no formato retangular, com lados de medidas 3 m e 6 m, será dividida em dois ambientes. Para isso, serão utilizadas colunas em formato cilíndrico, dispostas perpendicularmente ao piso e representadas na figura pelos círculos de cor azul. Os centros desses círculos estarão sobre uma reta paralela aos lados de menor medida do piso da sala. Os vãos entre duas colunas e entre uma coluna e a parede não poderão ser superiores a 15 cm.\n\n![](/enem-assets/2024/q150-1.png)\n\nPara efetuar a compra dessas colunas, foram feitos orçamentos com base em dados fornecidos por cinco lojas.\n\n![](/enem-assets/2024/q150-2.png)\n\nI\n\n5",
+  "context": "Uma sala com piso no formato retangular, com lados de medidas 3 m e 6 m, será dividida em dois ambientes. Para isso, serão utilizadas colunas em formato cilíndrico, dispostas perpendicularmente ao piso e representadas na figura pelos círculos de cor azul. Os centros desses círculos estarão sobre uma reta paralela aos lados de menor medida do piso da sala. Os vãos entre duas colunas e entre uma coluna e a parede não poderão ser superiores a 15 cm.\n\n![](/enem-assets/2024/q150-1.png)\n\nPara efetuar a compra dessas colunas, foram feitos orçamentos com base em dados fornecidos por cinco lojas.\n\n![](/enem-assets/2024/q150-2.png)",
   "files": [],
   "correctAlternative": "C",
-  "alternativesIntroduction": "60\nII 10 70\nIII 12 75\nIV 15 90\nV 20 120\nA compra será realizada na loja cujo orçamento resulte no menor valor total possível.\nA compra será realizada na loja",
+  "alternativesIntroduction": "A compra será realizada na loja cujo orçamento resulte no menor valor total possível.\nA compra será realizada na loja",
   "alternatives": [
    {
     "letter": "A",
@@ -6670,10 +6670,10 @@
   "year": 2024,
   "language": null,
   "discipline": "",
-  "context": "O gráfico apresenta o valor total de exportações e o valor total de importações, ao longo de um período, em bilhão de dólares. O saldo da balança comercial brasileira é dado pelo valor total de exportações menos o valor total de importações num mesmo período.\n\nValor total de exportações e importações\n\n![](/enem-assets/2024/q152-1.png)\n\nDisponível em: http://blogs.estadao.com.br. Acesso em: 20 fev. 2013 (adaptado).\n\n![fórmula](/enem-assets/2024/q152-2.png)",
+  "context": "O gráfico apresenta o valor total de exportações e o valor total de importações, ao longo de um período, em bilhão de dólares. O saldo da balança comercial brasileira é dado pelo valor total de exportações menos o valor total de importações num mesmo período.\n\nValor total de exportações e importações\n\n![](/enem-assets/2024/q152-1.png)\n\nDisponível em: http://blogs.estadao.com.br. Acesso em: 20 fev. 2013 (adaptado).\n\nConsidere que os saldos da balança comercial brasileira, nos três meses destacados no gráfico, sejam representados por: • S₁: saldo em junho de 2009; • S₂: saldo em janeiro de 2010; • S₃: saldo em junho de 2010.",
   "files": [],
   "correctAlternative": "A",
-  "alternativesIntroduction": "Considere que os saldos da balança comercial brasileira, nos três meses destacados no gráfico, sejam representados por: • S₁: saldo em junho de 2009; • S₂: saldo em janeiro de 2010; • S₃: saldo em junho de 2010.",
+  "alternativesIntroduction": "A ordenação dos saldos S₁, S₂ e S₃, do maior para o menor, é",
   "alternatives": [
    {
     "letter": "A",
@@ -6756,7 +6756,7 @@
   "year": 2024,
   "language": null,
   "discipline": "",
-  "context": "Contratos de vários serviços disponíveis na internet apresentam uma quantidade excessiva de informações. Isso faz com que o tempo necessário para a leitura desses contratos possa ser longo.\nO quadro apresenta uma amostra do tempo considerado necessário para a leitura completa do contrato de alguns serviços digitais.\n\n![](/enem-assets/2024/q154-1.png)\n\nA\n\n36\nB 17\nC 27\nD 13\nE 13\nF 13\n\nROMERO, L. Não li e concordo. Superinteressante, n. 307, ago. 2012 (adaptado).",
+  "context": "Contratos de vários serviços disponíveis na internet apresentam uma quantidade excessiva de informações. Isso faz com que o tempo necessário para a leitura desses contratos possa ser longo.\nO quadro apresenta uma amostra do tempo considerado necessário para a leitura completa do contrato de alguns serviços digitais.\n\n![](/enem-assets/2024/q154-1.png)\n\nROMERO, L. Não li e concordo. Superinteressante, n. 307, ago. 2012 (adaptado).",
   "files": [],
   "correctAlternative": "C",
   "alternativesIntroduction": "O tempo médio, em minuto, necessário para a leitura completa de um contrato de serviço dentre os listados no quadro é, com uma casa decimal, aproximadamente,",
@@ -7186,7 +7186,7 @@
   "year": 2024,
   "language": null,
   "discipline": "",
-  "context": "A prefeitura de uma cidade planeja construir três postos de saúde. Esses postos devem ser construídos em locais equidistantes entre si e de forma que as distâncias desses três postos ao hospital dessa cidade sejam iguais. Foram conseguidos três locais para a construção dos postos de saúde que apresentam as características desejadas, e que distam 10 km entre si, conforme o esquema, no qual o ponto H representa o local onde está construído o hospital;\n\n![fórmula](/enem-assets/2024/q164-1.png)\n\npontos estão em um mesmo plano.\n\n![](/enem-assets/2024/q164-2.png)",
+  "context": "A prefeitura de uma cidade planeja construir três postos de saúde. Esses postos devem ser construídos em locais equidistantes entre si e de forma que as distâncias desses três postos ao hospital dessa cidade sejam iguais. Foram conseguidos três locais para a construção dos postos de saúde que apresentam as características desejadas, e que distam 10 km entre si, conforme o esquema, no qual o ponto H representa o local onde está construído o hospital; os pontos P₁, P₂ e P₃, os postos de saúde; e esses quatro pontos estão em um mesmo plano.\n\n![](/enem-assets/2024/q164-1.png)",
   "files": [],
   "correctAlternative": "C",
   "alternativesIntroduction": "A distância, em quilômetro, entre o hospital e cada um dos postos de saúde, é um valor entre",
@@ -7194,31 +7194,31 @@
    {
     "letter": "A",
     "text": "",
-    "file": "/enem-assets/2024/q164-A-3.png",
+    "file": "/enem-assets/2024/q164-A-2.png",
     "isCorrect": false
    },
    {
     "letter": "B",
     "text": "",
-    "file": "/enem-assets/2024/q164-B-4.png",
+    "file": "/enem-assets/2024/q164-B-3.png",
     "isCorrect": false
    },
    {
     "letter": "C",
     "text": "",
-    "file": "/enem-assets/2024/q164-C-5.png",
+    "file": "/enem-assets/2024/q164-C-4.png",
     "isCorrect": true
    },
    {
     "letter": "D",
     "text": "",
-    "file": "/enem-assets/2024/q164-D-6.png",
+    "file": "/enem-assets/2024/q164-D-5.png",
     "isCorrect": false
    },
    {
     "letter": "E",
     "text": "",
-    "file": "/enem-assets/2024/q164-E-7.png",
+    "file": "/enem-assets/2024/q164-E-6.png",
     "isCorrect": false
    }
   ]
@@ -7444,7 +7444,7 @@
   "year": 2024,
   "language": null,
   "discipline": "",
-  "context": "Em uma região com grande incidência de terremotos, observou-se que dois terremotos ocorridos apresentaram\n\n![fórmula](/enem-assets/2024/q170-1.png)\n\nos estudiosos do assunto, é conhecida uma expressão algébrica relacionando esses valores dada por\n\n2 3 O M\nM\n\n2 1\n\n3\n\n![fórmula](/enem-assets/2024/q170-2.png)\n\nE\n\n2\n\nlog\n\n![fórmula](/enem-assets/2024/q170-3.png)\n\nE\n\n![fórmula](/enem-assets/2024/q170-4.png)\n\n1\n\nEstudos mais abrangentes observaram que o primeiro terremoto apresentou a magnitude M₁ = 6,9 e a energia liberada foi um décimo da observada no segundo terremoto.",
+  "context": "Em uma região com grande incidência de terremotos, observou-se que dois terremotos ocorridos apresentaram magnitudes M₁ e M₂, medidos segundo a escala Richter, e liberaram energias iguais a E₁ e E₂, respectivamente. Entre os estudiosos do assunto, é conhecida uma expressão algébrica relacionando esses valores dada por\n\n2 3 O M\nM\n\n2 1\n\n3\n\n![fórmula](/enem-assets/2024/q170-1.png)\n\nE\n\n2\n\nlog\n\n![fórmula](/enem-assets/2024/q170-2.png)\n\nE\n\n![fórmula](/enem-assets/2024/q170-3.png)\n\n1\n\nEstudos mais abrangentes observaram que o primeiro terremoto apresentou a magnitude M₁ = 6,9 e a energia liberada foi um décimo da observada no segundo terremoto.",
   "files": [],
   "correctAlternative": "C",
   "alternativesIntroduction": "O valor aproximado da magnitude M₂ do segundo terremoto, expresso com uma casa decimal, é igual a",

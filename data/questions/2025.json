@@ -2155,7 +2155,7 @@
   "year": 2025,
   "language": null,
   "discipline": "",
-  "context": "Macedônia do Norte\nAcordo entra em vigor e país muda oficialmente de nome\nEntrou em vigor, em 2019, o acordo que determina a mudança de nome da Macedônia para Macedônia do Norte. A troca põe fim — ao menos por enquanto — no impasse entre essa antiga república da Iugoslávia e a vizinha Grécia. O governo grego se opunha ao uso do nome Macedônia pelo novo país vizinho porque a Grécia tem uma província no norte com o mesmo nome. Por causa desse impasse, a Grécia bloqueou as negociações de adesão de seu vizinho à União Europeia. Depois de negociações, as duas partes chegaram a um acordo.\n\nDisponível em: https://g1.globo.com. Acesso em: 7 nov. 2021 (adaptado).",
+  "context": "Entrou em vigor, em 2019, o acordo que determina a mudança de nome da Macedônia para Macedônia do Norte. A troca põe fim — ao menos por enquanto — no impasse entre essa antiga república da Iugoslávia e a vizinha Grécia. O governo grego se opunha ao uso do nome Macedônia pelo novo país vizinho porque a Grécia tem uma província no norte com o mesmo nome. Por causa desse impasse, a Grécia bloqueou as negociações de adesão de seu vizinho à União Europeia. Depois de negociações, as duas partes chegaram a um acordo.\n\nDisponível em: https://g1.globo.com. Acesso em: 7 nov. 2021 (adaptado).",
   "files": [],
   "correctAlternative": "E",
   "alternativesIntroduction": "Para o país originado da antiga Iugoslávia, a mudança de nome é uma estratégia política para",
@@ -5509,7 +5509,7 @@
   "year": 2025,
   "language": null,
   "discipline": "",
-  "context": "Apaixonada por culinária e química, uma chefe de cozinha calculou que, para promover o crescimento adequado da massa durante o cozimento de um bolo a 180 °C (453 K) e 1,00 atm, ela precisaria utilizar uma quantidade de fermento químico suficiente para produzir um volume de gás igual a 4,00 L. Com esse objetivo, ela escolheu utilizar o bicarbonato de amônio, um composto que, sob aquecimento, degrada-se em três gases distintos, que são os responsáveis pelo crescimento da massa. A decomposição do bicarbonato de amônio ocorre conforme a equação química apresentada e, nas condições do cozimento, seu rendimento é de 80%.\n\n![fórmula](/enem-assets/2025/q125-1.png)\n\nConsidere que a mistura dos gases se comporta como gás ideal nas condições de cozimento utilizadas pela chefe.\n\n![fórmula](/enem-assets/2025/q125-2.png)",
+  "context": "Apaixonada por culinária e química, uma chefe de cozinha calculou que, para promover o crescimento adequado da massa durante o cozimento de um bolo a 180 °C (453 K) e 1,00 atm, ela precisaria utilizar uma quantidade de fermento químico suficiente para produzir um volume de gás igual a 4,00 L. Com esse objetivo, ela escolheu utilizar o bicarbonato de amônio, um composto que, sob aquecimento, degrada-se em três gases distintos, que são os responsáveis pelo crescimento da massa. A decomposição do bicarbonato de amônio ocorre conforme a equação química apresentada e, nas condições do cozimento, seu rendimento é de 80%.\n\nNH₄HCO₃ (s) → NH₃ (g) + CO₂ (g) + H₂O (g)\n\nConsidere que a mistura dos gases se comporta como gás ideal nas condições de cozimento utilizadas pela chefe.\nDados: Massa molar do NH₄HCO₃ = 79 g ⋅ mol⁻¹ e\n\n![fórmula](/enem-assets/2025/q125-1.png)",
   "files": [],
   "correctAlternative": "B",
   "alternativesIntroduction": "A massa, em grama, de bicarbonato de amônio que ela deve utilizar é mais próxima de",
@@ -5517,31 +5517,31 @@
    {
     "letter": "A",
     "text": "",
-    "file": "/enem-assets/2025/q125-A-3.png",
+    "file": "/enem-assets/2025/q125-A-2.png",
     "isCorrect": false
    },
    {
     "letter": "B",
     "text": "",
-    "file": "/enem-assets/2025/q125-B-4.png",
+    "file": "/enem-assets/2025/q125-B-3.png",
     "isCorrect": true
    },
    {
     "letter": "C",
     "text": "",
-    "file": "/enem-assets/2025/q125-C-5.png",
+    "file": "/enem-assets/2025/q125-C-4.png",
     "isCorrect": false
    },
    {
     "letter": "D",
     "text": "",
-    "file": "/enem-assets/2025/q125-D-6.png",
+    "file": "/enem-assets/2025/q125-D-5.png",
     "isCorrect": false
    },
    {
     "letter": "E",
     "text": "",
-    "file": "/enem-assets/2025/q125-E-7.png",
+    "file": "/enem-assets/2025/q125-E-6.png",
     "isCorrect": false
    }
   ]
@@ -5767,7 +5767,7 @@
   "year": 2025,
   "language": null,
   "discipline": "",
-  "context": "O Brasil é o maior produtor mundial de nióbio (massa molar = 93 g mol⁻¹), metal utilizado na fabricação de vários tipos de aço: automotivos, estruturais e inoxidáveis. O processo utilizado na produção do nióbio é a redução aluminotérmica de Nb₂O₅ com excesso de 10% de Al (massa molar = 27 g mol⁻¹), em relação à quantidade estequiométrica da reação, representada pela equação química:\n\n![fórmula](/enem-assets/2025/q131-1.png)\n\nUma engenheira metalúrgica estimou a massa de alumínio necessária para produzir 9,3 kg de nióbio, nas condições descritas, para a produção de um lote de peças de aço encomendado por uma indústria, considerando um rendimento de 100%.\n\nDisponível em: www.cbmm.com.br. Acesso em: 17 out. 2015 (adaptado).",
+  "context": "O Brasil é o maior produtor mundial de nióbio (massa molar = 93 g mol⁻¹), metal utilizado na fabricação de vários tipos de aço: automotivos, estruturais e inoxidáveis. O processo utilizado na produção do nióbio é a redução aluminotérmica de Nb₂O₅ com excesso de 10% de Al (massa molar = 27 g mol⁻¹), em relação à quantidade estequiométrica da reação, representada pela equação química:\n\n3 Nb₂O₅ (s) + 10 Al (s) → 6 Nb (s) + 5 Al₂O₃ (s)\n\nUma engenheira metalúrgica estimou a massa de alumínio necessária para produzir 9,3 kg de nióbio, nas condições descritas, para a produção de um lote de peças de aço encomendado por uma indústria, considerando um rendimento de 100%.\n\nDisponível em: www.cbmm.com.br. Acesso em: 17 out. 2015 (adaptado).",
   "files": [],
   "correctAlternative": "E",
   "alternativesIntroduction": "A massa de alumínio, em quilograma, estimada pela engenheira é mais próxima de",
@@ -5775,31 +5775,31 @@
    {
     "letter": "A",
     "text": "",
-    "file": "/enem-assets/2025/q131-A-2.png",
+    "file": "/enem-assets/2025/q131-A-1.png",
     "isCorrect": false
    },
    {
     "letter": "B",
     "text": "",
-    "file": "/enem-assets/2025/q131-B-3.png",
+    "file": "/enem-assets/2025/q131-B-2.png",
     "isCorrect": false
    },
    {
     "letter": "C",
     "text": "",
-    "file": "/enem-assets/2025/q131-C-4.png",
+    "file": "/enem-assets/2025/q131-C-3.png",
     "isCorrect": false
    },
    {
     "letter": "D",
     "text": "",
-    "file": "/enem-assets/2025/q131-D-5.png",
+    "file": "/enem-assets/2025/q131-D-4.png",
     "isCorrect": false
    },
    {
     "letter": "E",
     "text": "",
-    "file": "/enem-assets/2025/q131-E-6.png",
+    "file": "/enem-assets/2025/q131-E-5.png",
     "isCorrect": true
    }
   ]

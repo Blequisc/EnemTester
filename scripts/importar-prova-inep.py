@@ -94,11 +94,13 @@ def page_figures(page, blocks):
     # faixas dos títulos "QUESTÃO N": desenhos ali são só a barra decorativa do título
     header_bands = [pymupdf.Rect(l["bbox"]) for b in blocks if b["type"] == 0 for l in b["lines"]
                     if HEADER_RE.fullmatch("".join(s["text"] for s in l["spans"]).strip())]
-    rects = []
+    rects, table_heads = [], []
     for d in page.get_drawings():
         r = pymupdf.Rect(d["rect"])
         if any(r.y1 >= h.y0 - 4 and r.y0 <= h.y1 + 4 for h in header_bands) and r.height < 12:
             continue
+        if d.get("fill") is not None and 10 <= r.height <= 45 and r.width > 120 and r.intersects(cr):
+            table_heads.append(r)  # cabeçalho colorido de tabela
         if r.width < 1 and r.height > 300:  # linha divisória das colunas
             continue
         if r.get_area() > 0.4 * page.rect.get_area():  # moldura / marcas de corte da gráfica
@@ -129,6 +131,23 @@ def page_figures(page, blocks):
         if b["type"] == 1 and not is_decoration(b, page):
             figs.append(pymupdf.Rect(b["bbox"]) & cr)
     figs = merge_rects(figs, pad=3)
+    # tabela sem bordas: o cabeçalho colorido vira figura sozinho; estende para baixo pelas linhas da tabela
+    if table_heads:
+        lines = sorted([(pymupdf.Rect(l["bbox"]), max(s["size"] for s in l["spans"]),
+                         any(ALT_FONT in s["font"] for s in l["spans"]))
+                        for b in blocks if b["type"] == 0 for l in b["lines"] if l["spans"]], key=lambda t: t[0].y0)
+        for i, f in enumerate(figs):
+            if f.height > 50 or not any(f.contains(h) or (f & h).get_area() > 0.8 * h.get_area() for h in table_heads):
+                continue
+            bottom = f.y1
+            for lr, size, is_alt in lines:
+                if lr.y0 < f.y1 - 2 or lr.x1 < f.x0 or lr.x0 > f.x1:
+                    continue  # acima da tabela ou em outra coluna
+                paragraph = lr.width > 0.85 * f.width
+                if is_alt or paragraph or size < 8.5 or lr.y0 - bottom >= 18 or lr.y1 - f.y0 > 200:
+                    break
+                bottom = max(bottom, lr.y1)
+            figs[i] = pymupdf.Rect(f.x0, f.y0, f.x1, bottom + 3)
     return [f for f in figs if f.width > 25 and f.height > 20]
 
 
@@ -158,9 +177,9 @@ def is_formula(spans, base):
         return True
     if any(MATH_FONT.search(s["font"]) for s in spans if s["text"].strip()):
         return True
-    if len(small_spans(spans, base)) >= 3:
-        return True
     t = text.strip()
+    if len(small_spans(spans, base)) >= 3 and len(t) < 40:
+        return True
     letters = sum(c.isalpha() for c in t)
     return 0 < len(t) <= 25 and letters / len(t) < 0.4 and not re.fullmatch(r"[\d.,%\s()R$°-]+", t)
 
