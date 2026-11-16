@@ -1,5 +1,12 @@
 import type { Exam, Question } from "../../shared/types";
 
+/** fetch com limite de tempo, para a página nunca ficar "carregando" para sempre. */
+function get(url: string, ms = 20000): Promise<Response> {
+  return fetch(url, { signal: AbortSignal.timeout(ms) }).catch((e: Error) => {
+    throw new Error(e.name === "TimeoutError" ? "O servidor demorou demais para responder." : "Não foi possível falar com o servidor do site.");
+  });
+}
+
 async function json<T>(res: Response): Promise<T> {
   if (!res.ok) {
     const body = await res.json().catch(() => null);
@@ -9,6 +16,8 @@ async function json<T>(res: Response): Promise<T> {
 }
 
 export interface Health {
+  /** false enquanto a verificação ainda não terminou. */
+  loaded?: boolean;
   /** O servidor consegue gerar explicações novas na hora (tem chave da API). */
   live: boolean;
   /** Quantas explicações já estão prontas no servidor. */
@@ -17,18 +26,18 @@ export interface Health {
 
 export async function fetchHealth(): Promise<Health> {
   try {
-    return await json(await fetch("/api/health"));
+    return { ...(await json<Health>(await get("/api/health", 8000))), loaded: true };
   } catch {
-    return { live: false, stored: 0 };
+    return { live: false, stored: 0, loaded: true };
   }
 }
 
 export async function fetchExams(): Promise<Exam[]> {
-  return json(await fetch("/api/exams"));
+  return json(await get("/api/exams"));
 }
 
 export async function fetchQuestions(year: number, language: string): Promise<Question[]> {
-  return json(await fetch(`/api/exams/${year}/questions?language=${encodeURIComponent(language)}`));
+  return json(await get(`/api/exams/${year}/questions?language=${encodeURIComponent(language)}`, 60000));
 }
 
 const EXPLAIN_CACHE = "enemtester:explanations";

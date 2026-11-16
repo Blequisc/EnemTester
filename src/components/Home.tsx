@@ -84,7 +84,7 @@ export function Home({ health, onStart }: Props) {
           Escolha uma prova, responda as questões e, a cada resposta, veja <strong>por que</strong> a alternativa certa é a
           certa, onde estava a pegadinha e uma revisão rápida do conteúdo cobrado.
         </p>
-        {!health.live && health.stored === 0 && (
+        {health.loaded && !health.live && health.stored === 0 && (
           <p className="notice">
             Ainda não há explicações das provas oficiais neste servidor. As questões de demonstração continuam com explicação
             completa.

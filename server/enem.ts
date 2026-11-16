@@ -13,7 +13,11 @@ async function getJson<T>(path: string): Promise<T> {
   const hit = cache.get(path);
   if (hit && Date.now() - hit.at < TTL_MS) return hit.value as Promise<T>;
   const value = (async () => {
-    const res = await fetch(`${BASE}${path}`, { headers: { accept: "application/json" } });
+    // Limite de tempo: se a enem.dev não responder, o site não fica travado esperando.
+    const res = await fetch(`${BASE}${path}`, {
+      headers: { accept: "application/json" },
+      signal: AbortSignal.timeout(Number(process.env.ENEM_API_TIMEOUT_MS ?? 10000)),
+    });
     if (!res.ok) throw new EnemApiError(res.status, `api.enem.dev respondeu ${res.status} em ${path}`);
     return res.json();
   })();
