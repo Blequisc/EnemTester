@@ -1,17 +1,74 @@
 {
+  "2023-1-espanhol": {
+    "replace": [
+      [
+        "![](https://enem.dev/broken-image.svg)",
+        "![Cartaz do filme Como estrellas en la tierra](/enem-assets/2023/1-espanhol.jpg)"
+      ]
+    ]
+  },
+  "2023-5-ingles": {
+    "replace": [
+      [
+        "![](https://enem.dev/broken-image.svg)",
+        "![Cartum: um funcionário apresenta o escritório a um novo colega; todos os funcionários são homens brancos de terno e gravata, quase idênticos. Legenda: “Oh, you’ll love working here. Nobody treats you any differently just because of your age, race, or gender.”](/enem-assets/2023/5-ingles.jpg)"
+      ]
+    ]
+  },
+  "2023-44": {
+    "replace": [
+      [
+        "![](https://enem.dev/broken-image.svg)",
+        "![Campanha do Ministério da Saúde: Por que é tão importante amamentar?](/enem-assets/2023/44.jpg)"
+      ]
+    ]
+  },
+  "2023-56": {
+    "replace": [
+      [
+        "![](https://enem.dev/broken-image.svg)",
+        "![Charge de Laerte em três quadros: uma mulher segura uma lâmpada mágica e pensa: “Eu queria poder.”, “Força? Visão de raio X? Telecinese? Telepatia?” e, por fim, “Poder político.”](/enem-assets/2023/56.jpg)"
+      ]
+    ]
+  },
+  "2023-65": {
+    "replace": [
+      [
+        "![](https://enem.dev/broken-image.svg)",
+        "![Fotografia do Museu de Arte de São Paulo (MASP), na Avenida Paulista](/enem-assets/2023/65.jpg)"
+      ]
+    ]
+  },
   "2023-129": {
     "replace": [
       [
         "de fórmula ![](https://enem.dev/broken-image.svg)",
         "de fórmula C₁₂H₈Cl₆"
+      ],
+      [
+        "![](https://enem.dev/broken-image.svg)",
+        "![Estrutura molecular do Aldrin](/enem-assets/2023/129.png)"
       ]
-    ],
-    "notice": "A figura com a estrutura do Aldrin não está disponível. Ela não é necessária para resolver a questão."
+    ]
   },
-  "2023-146": {
-    "notice": "Parte do enunciado não está disponível. Na prova original, os números de 1 a 6 são colocados nos seis círculos do triângulo de modo que a soma dos números de cada lado seja a mesma."
+  "2023-132": {
+    "alternativeFiles": {
+      "A": "/enem-assets/2023/132-A.png",
+      "B": "/enem-assets/2023/132-B.png",
+      "C": "/enem-assets/2023/132-C.png",
+      "D": "/enem-assets/2023/132-D.png"
+    }
   },
   "2023-99": {
-    "notice": "A pergunta final desta questão não aparece na base de dados. Ela pede qual material dos cães deve ser examinado para detectar o protozoário."
+    "intro": "Em qual material biológico dos cães a presença desse protozoário representa risco de transmissão dessa zoonose?"
+  },
+  "2023-141": {
+    "context": "No alojamento de uma universidade, há alguns quartos com o padrão superior ao dos demais. Um desses quartos ficou disponível, e muitos estudantes se candidataram para morar no local. Para escolher quem ficará com o quarto, um sorteio será realizado. Para esse sorteio, cartões individuais com os nomes de todos os estudantes inscritos serão depositados em uma urna, sendo que, para cada estudante de primeiro ano, será depositado um único cartão com seu nome; para cada estudante de segundo ano, dois cartões com seu nome; e, para cada estudante de terceiro ano, três cartões com seu nome. Foram inscritos 200 estudantes de primeiro ano, 150 de segundo ano e 100 de terceiro ano. Todos os cartões têm a mesma probabilidade de serem sorteados."
+  },
+  "2023-142": {
+    "context": "A água utilizada pelos 75 moradores de um vilarejo provém de um reservatório de formato cilíndrico circular reto cujo raio da base mede 5 metros, sempre abastecido no primeiro dia de cada mês por caminhões-pipa. Cada morador desse vilarejo consome, em média, 200 litros de água por dia.\n\nNo mês de junho de um determinado ano, o vilarejo festejou o dia do seu padroeiro e houve um gasto extra de água nos primeiros 20 dias. Passado esse período, as pessoas verificaram a quantidade de água presente no reservatório e constataram que o nível da coluna de água estava em 1,5 metro. Decidiram, então, fazer um racionamento de água durante os 10 dias seguintes. Considere 3 como aproximação para π."
+  },
+  "2023-146": {
+    "prependContext": "O triângulo da figura é denominado triângulo mágico. Nos círculos, escrevem-se os números de 1 a 6, sem repetição, com um número em cada círculo. O objetivo é distribuir os números de forma que as somas dos números em cada lado do triângulo sejam iguais."
   }
 }

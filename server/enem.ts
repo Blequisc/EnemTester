@@ -58,9 +58,21 @@ function splitIntro(context: string, intro: string): { context: string; intro: s
   return { context: lines.join("\n").trim(), intro: last.trim() };
 }
 
+/**
+ * Correções manuais feitas a partir da prova oficial do INEP (data/corrections/<ano>.json).
+ * As imagens recortadas da prova ficam em public/enem-assets/<ano>/.
+ */
 interface Correction {
   /** Trocas de texto no enunciado: [de, para]. */
   replace?: [string, string][];
+  /** Enunciado completo (quando a base perdeu o texto). */
+  context?: string;
+  /** Texto que falta antes do enunciado da base. */
+  prependContext?: string;
+  /** Pergunta (quando a base perdeu a frase final). */
+  intro?: string;
+  /** Imagens das alternativas que faltam: letra → caminho. */
+  alternativeFiles?: Partial<Record<string, string>>;
   notice?: string;
 }
 
@@ -78,8 +90,15 @@ const BROKEN = /!\[[^\]]*\]\([^)]*broken-image[^)]*\)/g;
 /** Aplica correções manuais e troca imagens quebradas da base por avisos claros. */
 function fixQuestion(q: Question): Question {
   const fix = correctionFor(q.year, q.id);
-  let context = q.context;
+  let context = fix?.context ?? q.context;
   for (const [from, to] of fix?.replace ?? []) context = context.split(from).join(to);
+  if (fix?.prependContext) context = `${fix.prependContext}\n\n${context}`;
+  const alternativesIntroduction = fix?.intro ?? q.alternativesIntroduction;
+  // Se a pergunta foi corrigida e o texto da base estava todo no campo da pergunta, ele vira o enunciado.
+  if (fix?.intro && !context.trim()) context = q.alternativesIntroduction;
+  const alternatives = q.alternatives.map((a) =>
+    fix?.alternativeFiles?.[a.letter] ? { ...a, file: fix.alternativeFiles[a.letter] ?? null } : a,
+  );
 
   const notices: string[] = [];
   // Quando há um aviso específico (data/corrections), ele substitui o aviso genérico de imagem.
@@ -89,14 +108,14 @@ function fixQuestion(q: Question): Question {
   context = context.replace(BROKEN, "").trim();
   const files = q.files.filter((f) => !f.includes("broken-image"));
   // Sem enunciado e com uma pergunta curta: o texto de apoio realmente se perdeu.
-  if (!context && files.length === 0 && q.alternativesIntroduction.length < 200) {
+  if (!context && files.length === 0 && alternativesIntroduction.length < 200) {
     notices.push("O texto de apoio desta questão não está disponível na base de dados. Use a explicação para entender o problema.");
   }
-  if (q.alternatives.some((a) => !a.text.trim() && !a.file)) {
+  if (alternatives.some((a) => !a.text.trim() && !a.file)) {
     notices.push("Algumas alternativas desta questão são imagens que não estão disponíveis na base de dados. A explicação descreve a alternativa correta.");
   }
   if (fix?.notice) notices.push(fix.notice);
-  return { ...q, context, files, ...(notices.length ? { notices } : {}) };
+  return { ...q, context, files, alternativesIntroduction, alternatives, ...(notices.length ? { notices } : {}) };
 }
 
 export function normalizeQuestion(raw: any): Question {
